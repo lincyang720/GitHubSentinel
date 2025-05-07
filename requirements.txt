@@ -1,0 +1,5 @@
+PyGithub==2.3.0              # GitHub API 接口封装
+python-dotenv==1.0.1         # 读取 .env 配置文件
+SQLAlchemy==2.0.25           # ORM 数据库操作
+APScheduler==3.10.4          # 定时任务调度器
+email-validator==2.1.0.post1 # 邮箱格式校验（可选）
