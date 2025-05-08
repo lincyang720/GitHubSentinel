@@ -10,17 +10,22 @@ g = Github(GITHUB_TOKEN)
 
 
 def get_repo_daily_status(repo_full_name: str) -> str:
-    """
-    获取仓库的 open issues 和 pull requests，返回 Markdown 内容。
-    """
     repo = g.get_repo(repo_full_name)
     issues = repo.get_issues(state="open")
     pulls = repo.get_pulls(state="open")
+    commits = repo.get_commits()
 
     today = datetime.utcnow().date().isoformat()
     content = f"# 📌 Daily Update for `{repo_full_name}` - {today}\n\n"
 
-    content += "## 🐞 Open Issues\n"
+    content += "## 🔨 Recent Commits\n"
+    for commit in commits[:5]:
+        sha = commit.sha[:7]
+        msg = commit.commit.message.split("\n")[0]
+        author = commit.author.login if commit.author else "unknown"
+        content += f"- [{sha}] {msg} (by @{author})\n"
+
+    content += "\n## 🐞 Open Issues\n"
     for issue in issues[:10]:
         if issue.pull_request is None:
             content += f"- #{issue.number} {issue.title} ({issue.user.login})\n"

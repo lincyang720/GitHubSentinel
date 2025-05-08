@@ -21,6 +21,7 @@ Format the output in Markdown, using sections like:
 - Summary
 - Key Issues
 - Important PRs
+- Notable Commits
 
 Raw Input:
 \"\"\"

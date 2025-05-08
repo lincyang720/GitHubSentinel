@@ -1,5 +1,12 @@
 # 📌 Daily Update for `ollama/ollama` - 2025-05-08
 
+## 🔨 Recent Commits
+- [3d9498a] ollamarunner: Use correct constant to remove cache entries (by @jessegross)
+- [3098c8b] CI: trigger downstream release process (#10508) (by @dhiltgen)
+- [5e380c3] sched: fix race leading to orphaned runners (#10599) (by @dhiltgen)
+- [392de84] api: remove unused RetrieveModelResponse type (#10603) (by @jmorganca)
+- [af31cce] fix data race in WriteGGUF (#10598) (by @dhiltgen)
+
 ## 🐞 Open Issues
 - #10617 V100s not Being Used (sempervictus)
 - #10616 Create Development Network Testing Model (randomchristiancoder)

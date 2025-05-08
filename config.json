@@ -1,6 +1,6 @@
 {
-    "github_token": "",
-    "openai_api_key": "",
+    "github_token": "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",
+    "openai_api_key": "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",
   
     "notification_settings": {
       "email": "your_email@example.com",
@@ -8,6 +8,6 @@
     },
   
     "subscriptions_file": "subscriptions.json",
-    "update_interval": 86400
+    "update_interval": 60
   }
   
