@@ -1,21 +1,25 @@
 from apscheduler.schedulers.background import BackgroundScheduler
-from fetcher import fetch_all_updates
-from summarizer import summarize_updates
-from report_generator import generate_markdown_report
-from config import FETCH_INTERVAL
+from report_generator import summarize_all_daily_reports
+from github_client import export_all_repos_daily_md
+from config import FETCH_INTERVAL, OPENAI_API_KEY
+
+def run_export_and_summary():
+    files = export_all_repos_daily_md()
+    if not files:
+        print("❌ 所有仓库拉取失败，跳过汇总。")
+        return
+    summarize_all_daily_reports(files, api_key=OPENAI_API_KEY)
 
 def scheduled_job():
-    print("\n⏳ [Scheduler] 自动拉取仓库更新中...")
-    updates = fetch_all_updates()
-    if not any(updates.values()):
-        print("❌ 所有仓库更新失败，跳过摘要和报告生成。\n")
-        return
-    summary = summarize_updates(updates)
-    generate_markdown_report(summary)
-    print("✅ [Scheduler] 报告已生成\n")
+    print("\n⏳ [Scheduler] 正在执行自动日报任务...")
+    try:
+        run_export_and_summary()
+        print("✅ [Scheduler] 自动日报生成完毕\n")
+    except Exception as e:
+        print(f"❌ [Scheduler] 执行失败：{e}\n")
 
 def start_scheduler():
     scheduler = BackgroundScheduler()
     scheduler.add_job(scheduled_job, "interval", seconds=FETCH_INTERVAL)
     scheduler.start()
-    print(f"🕒 后台调度器已启动，每 {FETCH_INTERVAL} 秒执行一次拉取")
+    print(f"🕒 后台调度器已启动，每 {FETCH_INTERVAL} 秒执行一次")

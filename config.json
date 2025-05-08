@@ -1,12 +1,13 @@
 {
-    "github_token": "your_github_token_here",
-
+    "github_token": "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",
+    "openai_api_key": "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",
+  
     "notification_settings": {
-        "email": "your_email@example.com",
-        "slack_webhook_url": "your_slack_webhook_url"
+      "email": "your_email@example.com",
+      "slack_webhook_url": "your_slack_webhook_url"
     },
-
+  
     "subscriptions_file": "subscriptions.json",
-
     "update_interval": 86400
-}
+  }
+  
