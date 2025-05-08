@@ -1,0 +1,12 @@
+{
+    "github_token": "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",
+
+    "notification_settings": {
+        "email": "your_email@example.com",
+        "slack_webhook_url": "your_slack_webhook_url"
+    },
+
+    "subscriptions_file": "subscriptions.json",
+
+    "update_interval": 86400
+}

@@ -1,8 +1,26 @@
+import json
 import os
-from dotenv import load_dotenv
 
-load_dotenv()
+CONFIG_PATH = "config.json"
 
-GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///sentinel.db")
-FETCH_INTERVAL = int(os.getenv("FETCH_INTERVAL", "86400"))  # 秒
+if not os.path.exists(CONFIG_PATH):
+    raise FileNotFoundError("❌ config.json 文件未找到")
+
+with open(CONFIG_PATH, "r", encoding="utf-8") as f:
+    CONFIG = json.load(f)
+
+# GitHub Token
+GITHUB_TOKEN = CONFIG.get("github_token")
+if not GITHUB_TOKEN:
+    raise ValueError("❌ config.json 中缺少 github_token")
+
+# 通知配置（可选）
+NOTIFICATION_SETTINGS = CONFIG.get("notification_settings", {})
+NOTIFY_EMAIL = NOTIFICATION_SETTINGS.get("email")
+SLACK_WEBHOOK_URL = NOTIFICATION_SETTINGS.get("slack_webhook_url")
+
+# 仓库订阅文件路径
+SUBSCRIPTIONS_FILE = CONFIG.get("subscriptions_file", "subscriptions.json")
+
+# 更新间隔（秒）
+FETCH_INTERVAL = CONFIG.get("update_interval", 86400)
